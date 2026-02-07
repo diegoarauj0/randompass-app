@@ -1,8 +1,155 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
+
+  --bg-base: #0b1220;
+  --bg-surface: #111827;
+  --bg-card: #1f2933;
+
+  --text-main: #e5e7eb;
+  --text-muted: #9ca3af;
+
+  --radius: 8px;
+}
+
 body {
-  font-family:
-    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial,
-    sans-serif;
-  margin: auto;
-  max-width: 38rem;
-  padding: 2rem;
+  background: var(--bg-base);
+  color: var(--text-main);
+  font-family: system-ui, sans-serif;
+}
+
+.container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.card {
+  width: 100%;
+  max-width: 800px;
+  padding: 24px;
+}
+
+h1 {
+  margin-bottom: 16px;
+}
+
+.password-content {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  background: var(--bg-card);
+  border-radius: var(--radius);
+  margin-bottom: 16px;
+}
+
+.password {
+  flex: 1;
+  font-size: 1.4rem;
+  background: transparent;
+  border: none;
+  color: inherit;
+}
+
+.password:focus {
+  outline: none;
+}
+
+.icon-button {
+  width: 40px;
+  height: 40px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.4s ease;
+}
+
+.icon-button:hover {
+  transform: rotate(360deg) scale(1.1);
+}
+
+.icon-button img {
+  width: 100%;
+  height: 100%;
+}
+
+.password-copy {
+  background: var(--primary);
+  color: white;
+  border: none;
+  border-radius: var(--radius);
+  padding: 0 16px;
+  cursor: pointer;
+  font-weight: 600;
+  transition:
+    transform 0.2s,
+    background 0.2s;
+}
+
+.password-copy:hover {
+  background: var(--primary-hover);
+  transform: translateY(-2px);
+}
+
+.strength {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.strength-bar {
+  flex: 1;
+  height: 8px;
+  background: #374151;
+  border-radius: 999px;
+}
+
+.strength-text {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+}
+
+.options-content {
+  background: var(--bg-card);
+  padding: 16px;
+  border-radius: var(--radius);
+}
+
+.option.range {
+  margin-bottom: 16px;
+}
+
+.option.range label {
+  display: block;
+  margin-bottom: 8px;
+}
+
+.checkbox-group {
+  border: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.checkbox-group label {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend {
+  margin-bottom: 8px;
+}
+
+.input.range {
+  width: 100%;
 }

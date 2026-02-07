@@ -1,13 +1,66 @@
-<!doctype html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <title>Hello World!</title>
+<html lang="en">
 
-  </head>
-  <body>
-    <h1>💖 Hello World!</h1>
-    <p>Welcome to your Electron application.</p>
-    <script type="module" src="/src/renderer.ts"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <title>RandomPass</title>
+</head>
+
+<body>
+  <main class="container">
+    <section class="card">
+      <h1>RandomPass</h1>
+
+      <div class="password-content">
+        <input type="text" id="password" class="password" />
+
+        <button class="icon-button">
+          <img src="./public/generator.png">
+        </button>
+
+        <button class="password-copy">
+          Copy
+        </button>
+      </div>
+
+      <div class="strength">
+        <div class="strength-bar"></div>
+        <span class="strength-text">Fraca</span>
+      </div>
+
+      <form class="options-content">
+        <div class="option range">
+          <label for="length">Password length</label>
+          <input type="range" id="length" min="6" max="32" value="12" class="range input">
+        </div>
+
+        <fieldset class="checkbox-group">
+          <legend class="legend">Include characters</legend>
+
+          <label>
+            <input type="checkbox" id="lowercase" checked>
+            Lowercase letters
+          </label>
+
+          <label>
+            <input type="checkbox" id="uppercase" checked>
+            Uppercase letters
+          </label>
+
+          <label>
+            <input type="checkbox" id="digits" checked>
+            Digits
+          </label>
+
+          <label>
+            <input type="checkbox" id="special">
+            Special characters
+          </label>
+        </fieldset>
+      </form>
+    </section>
+  </main>
+
+  <script type="module" src="/src/renderer.ts"></script>
+</body>
+
 </html>
