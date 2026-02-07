@@ -11,7 +11,7 @@
       <h1>RandomPass</h1>
 
       <div class="password-content">
-        <input type="text" id="password" class="password" />
+        <input type="text" id="password" class="password js-password" />
 
         <button class="icon-button">
           <img src="./public/generator.png">
@@ -22,9 +22,11 @@
         </button>
       </div>
 
-      <div class="strength">
+      <div class="strength js-strength weak">
         <div class="strength-bar"></div>
-        <span class="strength-text">Fraca</span>
+        <span class="strength-text weak">weak</span>
+        <span class="strength-text average">average</span>
+        <span class="strength-text strong">strong</span>
       </div>
 
       <form class="options-content">
@@ -60,7 +62,7 @@
     </section>
   </main>
 
-  <script type="module" src="/src/renderer.ts"></script>
+  <script type="module" src="/src/renderer/renderer.ts"></script>
 </body>
 
 </html>

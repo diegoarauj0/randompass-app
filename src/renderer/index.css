@@ -16,6 +16,10 @@
   --text-muted: #9ca3af;
 
   --radius: 8px;
+
+  --color-success: #22c55e;
+  --color-warning: #f59e0b;
+  --color-error: #ef4444;
 }
 
 body {
@@ -105,11 +109,37 @@ h1 {
   margin-bottom: 16px;
 }
 
+.strength-text {
+  display: none;
+}
+
+.strength.weak > .strength-text.weak {
+  display: inline;
+}
+
+.strength.average > .strength-text.average {
+  display: inline;
+}
+
+.strength.strong > .strength-text.strong {
+  display: inline;
+}
+
 .strength-bar {
   flex: 1;
   height: 8px;
   background: #374151;
   border-radius: 999px;
+}
+
+.strength.average > .strength-bar {
+  transition: 1s;
+  background-color: var(--color-warning);
+}
+
+.strength.strong > .strength-bar {
+  transition: 1s;
+  background-color: var(--color-success);
 }
 
 .strength-text {
