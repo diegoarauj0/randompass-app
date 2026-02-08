@@ -1,28 +1,10 @@
+import "./translate";
 import "./index.css";
-
-const strengthElement = document.querySelector(".js-strength");
-const copyButtonElement = document.querySelector(".js-copy");
-const generatorButtonElement = document.querySelector(".js-generator");
-const passowrdElement =
-  document.querySelector<HTMLInputElement>(".js-password");
-
-const lenghtElement = document.querySelector<HTMLInputElement>("#length");
-
-const uppercaseCheckboxElement =
-  document.querySelector<HTMLInputElement>("#uppercase");
-const lowercaseCheckboxElement =
-  document.querySelector<HTMLInputElement>("#lowercase");
-const digitsCheckboxElement =
-  document.querySelector<HTMLInputElement>("#digits");
-const specialCheckboxElement =
-  document.querySelector<HTMLInputElement>("#special");
+import elements from "./elements";
 
 type PasswordStrength = "weak" | "average" | "strong";
 
-function checkPasswordStrength(password: string): {
-  score: number;
-  strength: PasswordStrength;
-} {
+function checkPasswordStrength(password: string): PasswordStrength {
   let score = 0;
 
   if (password.length >= 8) score++;
@@ -30,80 +12,72 @@ function checkPasswordStrength(password: string): {
 
   if (/[a-z]/.test(password)) score++;
   if (/[A-Z]/.test(password)) score++;
-  if (/[0-9]/.test(password)) score++;
+  if (/\d/.test(password)) score++;
   if (/[^a-zA-Z0-9]/.test(password)) score++;
 
-  let strength: PasswordStrength;
-
-  if (score <= 2) strength = "weak";
-  else if (score <= 4) strength = "average";
-  else strength = "strong";
-
-  return { score, strength };
+  if (score <= 2) return "weak";
+  if (score <= 4) return "average";
+  return "strong";
 }
 
-document.querySelector(".js-password").addEventListener("input", (e: any) => {
-  const password = e?.target?.value;
-  const result = checkPasswordStrength(password || "");
+function updateStrengthUI(password: string) {
+  const strength = checkPasswordStrength(password);
 
-  strengthElement.classList.remove("weak");
-  strengthElement.classList.remove("average");
-  strengthElement.classList.remove("strong");
-  strengthElement.classList.add(result.strength);
-});
+  elements.strengthElement.classList.remove("weak", "average", "strong");
+  elements.strengthElement.classList.add(strength);
+}
 
-function passwordGenerator(
+function generatePassword(
   length: number,
-  {
-    digits,
-    lowercase,
-    uppercase,
-    special,
-  }: {
-    digits?: boolean;
-    uppercase?: boolean;
-    lowercase?: boolean;
-    special?: boolean;
+  options: {
+    digits: boolean;
+    uppercase: boolean;
+    lowercase: boolean;
+    special: boolean;
   },
 ): string {
   let characters = "";
 
-  characters += uppercase ? "ABCDEFGHIJKLMNOPQRSTUVWXYZ" : "";
-  characters += lowercase ? "abcdefghijklmnopqrstuvwxyz" : "";
-  characters += digits ? "0123456789" : "";
-  characters += special ? "!@#$%^&*()_+-=[]{}|;:,.<>?" : "";
+  if (options.uppercase) characters += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+  if (options.lowercase) characters += "abcdefghijklmnopqrstuvwxyz";
+  if (options.digits) characters += "0123456789";
+  if (options.special) characters += "!@#$%^&*()_+-=[]{}|;:,.<>?";
 
-  const array = new Uint32Array(length);
-  crypto.getRandomValues(array);
-
-  let password = "";
-
-  for (let i = 0; i < length; i++) {
-    password += characters[array[i] % characters.length];
+  if (!characters) {
+    throw new Error("Selecione ao menos um tipo de caractere");
   }
 
-  return password;
+  const values = new Uint32Array(length);
+  crypto.getRandomValues(values);
+
+  return Array.from(values, (v) => characters[v % characters.length]).join("");
 }
 
-generatorButtonElement.addEventListener("click", () => {
-  console.log(lenghtElement.value)
-  const password = passwordGenerator(Number(lenghtElement.value), {
-    digits: digitsCheckboxElement.value === "on",
-    lowercase: lowercaseCheckboxElement.value === "on",
-    uppercase: uppercaseCheckboxElement.value === "on",
-    special: specialCheckboxElement.value === "on",
-  });
-
-  passowrdElement.value = password;
-
-  const result = checkPasswordStrength(password || "");
-
-  strengthElement.classList.remove("weak");
-  strengthElement.classList.remove("average");
-  strengthElement.classList.remove("strong");
-  strengthElement.classList.add(result.strength);
+elements.passwordInput.addEventListener("input", (event) => {
+  updateStrengthUI((event.target as HTMLInputElement).value);
 });
 
-copyButtonElement.addEventListener("click", () => {
-  navigator.clipboard.writeText(passowrdElement.value);
+elements.copyButton.addEventListener("click", async () => {
+  if (elements.passwordInput.value.length <= 0) {
+    return;
+  }
+
+  await navigator.clipboard.writeText(elements.passwordInput.value);
+  new Notification("Senha copiada para a area de transferenica");
+});
+
+elements.generatorButton.addEventListener("click", () => {
+  try {
+    const password = generatePassword(Number(elements.lengthInput.value), {
+      uppercase: elements.uppercaseCheckbox.checked,
+      lowercase: elements.lowercaseCheckbox.checked,
+      digits: elements.digitsCheckbox.checked,
+      special: elements.specialCheckbox.checked,
+    });
+
+    elements.passwordInput.value = password;
+    updateStrengthUI(password);
+  } catch (err) {
+    alert(err instanceof Error ? err.message : "Erro ao gerar senha");
+  }
 });
