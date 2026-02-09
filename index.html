@@ -7,60 +7,63 @@
 
 <body>
   <main class="container">
+    <button class="language-display-button js-language-display-button">
+      <img src="./public/settings.png">
+    </button>
+    <section class="language js-language hidden">
+      <h2 data-language="language">Language</h2>
+      <ul>
+        <li><button id="en" class="language-button js-language-button">English</button></li>
+        <li><button id="pt-BR" class="language-button js-language-button">Português</button></li>
+      </ul>
+    </section>
     <section class="card">
-      <h1>RandomPass</h1>
+      <header>
+        <img src="/public/icon.png" class="logo">
+        <h1 data-language="title">RandomPass</h1>
+      </header>
 
       <div class="password-content">
-        <input type="text" id="password" class="password" />
+        <input type="text" id="password" class="password js-password" />
 
-        <button class="icon-button">
+        <button class="icon-button js-generator">
           <img src="./public/generator.png">
         </button>
 
-        <button class="password-copy">
+        <button class="password-copy js-copy" data-language="copy">
           Copy
         </button>
       </div>
 
-      <div class="strength">
+      <div class="strength js-strength weak">
         <div class="strength-bar"></div>
-        <span class="strength-text">Fraca</span>
+        <span class="strength-text weak" data-language="weak">Weak</span>
+        <span class="strength-text average" data-language="average">Average</span>
+        <span class="strength-text strong" data-language="strong">Strong</span>
       </div>
 
       <form class="options-content">
         <div class="option range">
-          <label for="length">Password length</label>
-          <input type="range" id="length" min="6" max="32" value="12" class="range input">
+          <label for="length" data-language="passwordLength">Password length</label>
+          <input type="range" id="length" min="8" max="128" value="12" class="range input">
         </div>
 
         <fieldset class="checkbox-group">
-          <legend class="legend">Include characters</legend>
-
-          <label>
-            <input type="checkbox" id="lowercase" checked>
-            Lowercase letters
-          </label>
-
-          <label>
-            <input type="checkbox" id="uppercase" checked>
-            Uppercase letters
-          </label>
-
-          <label>
-            <input type="checkbox" id="digits" checked>
-            Digits
-          </label>
-
-          <label>
-            <input type="checkbox" id="special">
-            Special characters
-          </label>
+          <legend class="legend" data-language="includeCharacters">Include characters</legend>
+          <input type="checkbox" id="lowercase" checked>
+          <label for="lowercase" data-language="lowercase">Lowercase letters</label>
+          <input type="checkbox" id="uppercase" checked>
+          <label for="uppercase" data-language="uppercase">Uppercase letters</label>
+          <input type="checkbox" id="digits" checked>
+          <label for="digits" data-language="digits">Digits</label>
+          <input type="checkbox" id="special" checkedb>
+          <label for="special" data-language="specialCharacters">Special characters</label>
         </fieldset>
       </form>
     </section>
   </main>
 
-  <script type="module" src="/src/renderer.ts"></script>
+  <script type="module" src="/src/renderer/renderer.ts"></script>
 </body>
 
 </html>
