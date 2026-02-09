@@ -1,8 +1,8 @@
 {
   "name": "randompass-app",
-  "productName": "randompass-app",
+  "productName": "RandomPass",
   "version": "1.0.0",
-  "description": "My Electron application description",
+  "description": "Secure and random password generator.",
   "main": ".vite/build/main.js",
   "private": true,
   "scripts": {
@@ -12,9 +12,30 @@
     "publish": "electron-forge publish",
     "lint": "echo \"No linting configured\""
   },
-  "keywords": [],
+  "keywords": [
+    "password",
+    "password-generator",
+    "security",
+    "privacy",
+    "utility",
+    "electron"
+  ],
   "author": {
-    "name": "Diego Araujo"
+    "name": "Diego Araujo",
+    "email": "diegoaraujosantosbr@gmail.com",
+    "url": "https://github.com/diegoarauj0"
+  },
+  "homepage": "https://github.com/diegoarauj0/randompass-app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/diegoarauj0/randompass-app.git"
+  },
+  "build": {
+    "appId": "com.diegoaraujo.randompass",
+    "productName": "RandomPass",
+    "linux": {
+      "category": "Utility"
+    }
   },
   "license": "GPL-3.0-only",
   "devDependencies": {
