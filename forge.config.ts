@@ -25,6 +25,7 @@ const config: ForgeConfig = {
         homepage: "https://github.com/diegoarauj0/randompass-app",
         description: "Secure and random password generator.",
         categories: ["Utility"],
+        version: "1.0.0",
         license: "GPL-3.0-only",
       },
     }),
@@ -32,6 +33,7 @@ const config: ForgeConfig = {
       options: {
         icon: "./icon/icon.png",
         productName: "RandomPass",
+        version: "1.0.0",
         homepage: "https://github.com/diegoarauj0/randompass-app",
         maintainer: "Diego Araujo <diegoaraujosantosbr@gmail.com>",
         description: "Secure and random password generator.",
